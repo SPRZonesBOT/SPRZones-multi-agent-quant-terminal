@@ -16,7 +16,7 @@ from src.analytics.portfolio_optimizer import MarkowitzOptimizer
 from src.analytics.backtest_engine import run_strategy_backtest
 
 # -----------------------------------------------------------------------------
-# 1. PAGE CONFIGURATION & DARK INSTITUTIONAL STYLING
+# 1. PAGE CONFIGURATION & DARK INSTITUTIONAL GLASSMORPHISM THEME (image_4a0e3b)
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="SPRZones Institutional Quant Terminal",
@@ -27,28 +27,94 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .stApp { background-color: #0B0E14; color: #E1E6ED; }
+    /* Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    /* Main App Background */
+    html, body, .stApp {
+        background-color: #0E1117 !important;
+        font-family: 'Inter', sans-serif !important;
+        color: #E1E6ED !important;
+    }
+
+    /* Sidebar Background & Borders */
+    section[data-testid="stSidebar"] {
+        background-color: #131722 !important;
+        border-right: 1px solid #2A2E3D !important;
+    }
+
+    /* Metric Cards (Top Bar Cards) */
     div[data-testid="metric-container"] {
-        background: linear-gradient(135deg, #151A23 0%, #1A212D 100%);
-        border: 1px solid #2A3447;
-        border-radius: 8px;
-        padding: 12px 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        background: #1E222D !important;
+        border: 1px solid #2A2E3D !important;
+        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
     }
-    div[data-testid="metric-container"] label { color: #8B98A9 !important; font-size: 0.85rem !important; }
-    div[data-testid="metric-container"] div[data-testid="stMetricValue"] { color: #00F0FF !important; font-size: 1.5rem !important; font-weight: 700; }
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; border-bottom: 1px solid #2A3447; }
+
+    div[data-testid="metric-container"] label {
+        color: #848E9C !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.80rem !important;
+        letter-spacing: 0.5px;
+    }
+
+    div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
+        color: #00F0FF !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+    }
+
+    /* Glowing Navigation Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: #131722 !important;
+        padding: 6px !important;
+        border-radius: 8px !important;
+        border: 1px solid #2A2E3D !important;
+        gap: 6px !important;
+    }
+
     .stTabs [data-baseweb="tab"] {
-        background-color: #151A23;
-        border-radius: 6px 6px 0 0;
-        color: #8B98A9;
-        font-weight: 600;
-        padding: 10px 20px;
+        background-color: #1E222D !important;
+        color: #848E9C !important;
+        border-radius: 6px !important;
+        padding: 8px 18px !important;
+        font-weight: 600 !important;
+        font-size: 0.88rem !important;
+        border: 1px solid transparent !important;
+        transition: all 0.3s ease !important;
     }
+
     .stTabs [aria-selected="true"] {
-        background-color: #00F0FF !important;
-        color: #0B0E14 !important;
-        font-weight: 800;
+        background: linear-gradient(135deg, #00F0FF 0%, #2962FF 100%) !important;
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
+    }
+
+    /* Dataframe and Tables */
+    .stDataFrame, .stTable {
+        background-color: #1E222D !important;
+        border-radius: 8px !important;
+        border: 1px solid #2A2E3D !important;
+    }
+
+    /* Custom Buttons */
+    .stButton > button {
+        background: linear-gradient(135deg, #00E676 0%, #00B0FF 100%) !important;
+        color: #0E1117 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-weight: 700 !important;
+        border-radius: 6px !important;
+        border: none !important;
+        box-shadow: 0 4px 14px rgba(0, 230, 118, 0.3) !important;
+    }
+
+    h1, h2, h3 {
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -172,7 +238,13 @@ with tab1:
             ]
         }
     ))
-    fig_gauge.update_layout(height=250, margin=dict(l=20, r=20, t=30, b=20), paper_bgcolor="#0B0E14", font=dict(color="#E1E6ED"))
+    fig_gauge.update_layout(
+        height=250, 
+        margin=dict(l=20, r=20, t=30, b=20), 
+        paper_bgcolor="#1E222D", 
+        plot_bgcolor="#131722",
+        font=dict(color="#848E9C", family="JetBrains Mono")
+    )
     st.plotly_chart(fig_gauge, use_container_width=True)
 
 # -----------------------------------------------------------------------------
@@ -192,8 +264,11 @@ with tab2:
         template="plotly_dark",
         title=f"{selected_symbol} Live Price Action & Technical Envelope",
         height=450,
-        paper_bgcolor="#0B0E14",
-        plot_bgcolor="#151A23"
+        paper_bgcolor="#1E222D",
+        plot_bgcolor="#131722",
+        font=dict(family="JetBrains Mono", color="#848E9C"),
+        xaxis=dict(gridcolor="#2A2E3D", zerolinecolor="#2A2E3D"),
+        yaxis=dict(gridcolor="#2A2E3D", zerolinecolor="#2A2E3D")
     )
     st.plotly_chart(fig_chart, use_container_width=True)
     
@@ -242,6 +317,11 @@ with tab4:
         })
         fig_sec_in = px.bar(sectors_in, x="Change (%)", y="Sector", orientation="h", color="Change (%)",
                             color_continuous_scale="RdYlGn", template="plotly_dark")
+        fig_sec_in.update_layout(
+            paper_bgcolor="#1E222D", plot_bgcolor="#131722",
+            font=dict(family="JetBrains Mono", color="#848E9C"),
+            xaxis=dict(gridcolor="#2A2E3D"), yaxis=dict(gridcolor="#2A2E3D")
+        )
         st.plotly_chart(fig_sec_in, use_container_width=True)
         
     with col_h2:
@@ -252,6 +332,11 @@ with tab4:
         })
         fig_sec_us = px.bar(sectors_us, x="Change (%)", y="Sector", orientation="h", color="Change (%)",
                             color_continuous_scale="RdYlGn", template="plotly_dark")
+        fig_sec_us.update_layout(
+            paper_bgcolor="#1E222D", plot_bgcolor="#131722",
+            font=dict(family="JetBrains Mono", color="#848E9C"),
+            xaxis=dict(gridcolor="#2A2E3D"), yaxis=dict(gridcolor="#2A2E3D")
+        )
         st.plotly_chart(fig_sec_us, use_container_width=True)
 
 # -----------------------------------------------------------------------------
@@ -270,6 +355,10 @@ with tab5:
     st.markdown("##### Optimal Asset Allocation Weights")
     df_weights = pd.DataFrame(list(opt_res['optimal_weights'].items()), columns=["Asset", "Optimal Weight (%)"])
     fig_pie = px.pie(df_weights, values="Optimal Weight (%)", names="Asset", template="plotly_dark", hole=0.4)
+    fig_pie.update_layout(
+        paper_bgcolor="#1E222D",
+        font=dict(family="JetBrains Mono", color="#848E9C")
+    )
     st.plotly_chart(fig_pie, use_container_width=True)
 
 # -----------------------------------------------------------------------------
@@ -289,6 +378,11 @@ with tab6:
     
     fig_bt = px.line(bt_res['curve_df'], x="Date", y=["SPRZones Multi-Agent Alpha", "NIFTY 50 Benchmark"],
                      template="plotly_dark", title="Cumulative Strategy Equity Curve vs Benchmark")
+    fig_bt.update_layout(
+        paper_bgcolor="#1E222D", plot_bgcolor="#131722",
+        font=dict(family="JetBrains Mono", color="#848E9C"),
+        xaxis=dict(gridcolor="#2A2E3D"), yaxis=dict(gridcolor="#2A2E3D")
+    )
     st.plotly_chart(fig_bt, use_container_width=True)
 
 # -----------------------------------------------------------------------------
